@@ -8,43 +8,43 @@ class BowlingGame:
 
     def score(self):
         result = 0
-        rollIndex=0
-        for frameIndex in range(10):
-            if  self.isStrike(rollIndex):
-                result += self.strikeScore(rollIndex)
-                rollIndex +=1
-            elif self.isSpare(rollIndex):
-                result += self.spareScore(rollIndex)
-                rollIndex +=2
+        roll_index=0
+        for frame_index in range(10):
+            if  self.is_strike(roll_index):
+                result += self.strike_score(roll_index)
+                roll_index +=1
+            elif self.is_spare(roll_index):
+                result += self.spare_score(roll_index)
+                roll_index +=2
             else:
-                result += self.frameScore(rollIndex)
-                rollIndex +=2
+                result += self.frame_score(roll_index)
+                roll_index +=2
         return result
 
-    def isStrike(self, rollIndex):
-        return self.rolls[rollIndex] == 10
-    def isSpare(self, rollIndex):
-        return self.rolls[rollIndex]+ self.rolls[rollIndex+1]==10
-    def strikeScore(self,rollIndex):
-        return  10+ self.rolls[rollIndex+1]+ self.rolls[rollIndex+2]
+    def is_strike(self, roll_index):
+        return self.rolls[roll_index] == 10
+    def is_spare(self, roll_index):
+        return self.rolls[roll_index]+ self.rolls[roll_index+1]==10
+    def strike_score(self,roll_index):
+        return  10+ self.rolls[roll_index+1]+ self.rolls[roll_index+2]
 
-    def spareScore(self,rollIndex):
-        return  10+ self.rolls[rollIndex+2]
+    def spare_score(self,roll_index):
+        return  10+ self.rolls[roll_index+2]
 
-    def frameScore(self, rollIndex):
-        return self.rolls[rollIndex] + self.rolls[rollIndex + 1]
+    def frame_score(self, roll_index):
+        return self.rolls[roll_index] + self.rolls[roll_index + 1]
 		
 class TestBowlingGame(unittest.TestCase):
 
     def setUp(self):
         self.game = BowlingGame()
   
-    def testAllStrikes(self):
+    def test_all_strikes(self):
         for i in range(12):  
          self.game.roll(10)
         assert self.game.score() == 300
 
-    def testAllSpares(self):
+    def test_all_spares(self):
         for i in range(21):  
          self.game.roll(5)
         assert self.game.score() == 150
